@@ -1,0 +1,12 @@
+{%include 'header.html'%}
+{% from "bootstrap5/form.html" import render_form %}
+<div class="container">
+    <div class="heading">
+        <h3>Add New <span>Item</span></h3>
+    </div>
+</div>
+<div class="form">
+    {{ form.csrf_token }}
+    {{render_form(form)}}
+</div>
+
