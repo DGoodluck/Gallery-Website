@@ -6,26 +6,11 @@
     </div>
     <div class="container">
         <div class="box">
+            {%for item in items%}
             <div class="dream">
-                <img src="/static/slugs.jpg">
-                <img src="/static/shirts.jpg">
-                <img src="/static/keychains.jpg">
-            </div>    
-            <div class="dream">
-                <img src="/static/cargos.jpg">
-                <img src="/static/travis-shirt.jpg">
-                <img src="/static/jacket.jpg">
-            </div>     
-            <div class="dream">
-                <img src="/static/battles.jpg">
-                <img src="/static/washed.jpg">
-                <img src="/static/sweater.jpg">
+                <img src={{item.address}}>
             </div> 
-            <div class="dream">
-                <img src="/static/white.png">
-                <img src="/static/tech.jpg">
-                <img src="/static/cudi.png">
-            </div>            
+            {%endfor%}         
         </div>
     </div>
-{include 'footer.html'}
+{%include 'footer.html'%}

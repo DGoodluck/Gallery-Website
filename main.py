@@ -19,17 +19,36 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
-
+    
+class Item(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), unique=True)
+    category = db.Column(db.String(250))
+    link = db.Column(db.String(1000))
+    address = db.Column(db.String(1000))
+    
 with app.app_context():
     db.create_all()
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    with app.app_context():
+        result = db.session.execute(db.select(Item).order_by(Item.id))
+        all_items = list(result.scalars())
+    return render_template("index.html", items=all_items)
 
-@app.route("/add")
+@app.route("/add", methods=["GET", "POST"])
 def add():
     form = AddItem()
+    item_name = form.name.data
+    item_category = form.name.data
+    item_link = form.link.data
+    item_img = form.img.data
+    if form.validate_on_submit():
+        with app.app_context():
+            new_item = Item(name=item_name, link=item_link, category=item_category, address=item_img)
+            db.session.add(new_item)
+            db.session.commit()
     return render_template("add.html", form=form)
     
 if __name__ == "__main__":
