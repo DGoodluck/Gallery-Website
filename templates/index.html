@@ -12,6 +12,10 @@
             {% endif %}
                 <div class="dream">
                     <img src={{item.address}}>
+                    <div class="overlay">
+                        <a href="{{item.link}}" target="_blank" rel="noopener noreferrer" class="item-link">Get Item</a>
+                        <a href="{{url_for('delete_item', item_id=item.id)}}" class="item-link">Delete</a>
+                    </div>
                 </div> 
             {% if loop.index0 % 4 == 3 or loop.last %}
             </div>

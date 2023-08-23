@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, flash, session
+from flask import Flask, render_template, request, url_for, redirect, flash, abort
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -114,6 +114,17 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/item/<item_id>/delete', methods=['GET','POST'])
+def delete_item(item_id):
+    item_to_delete = db.get_or_404(Item, item_id)
+    if item_to_delete.user.id != current_user.id:
+        abort(403)
+    db.session.delete(item_to_delete)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

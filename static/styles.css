@@ -71,9 +71,46 @@ nav{
     border-radius: 45px;
     transition: 1s;
 }
-.container .box .dream img:hover{
-    transform: scale(1.3);
-    z-index: 2;
+.dream {
+    position: relative;
+}
+
+.dream img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.1s ease;
+}
+.dream:hover img {
+    transform: scale(1.1);
+}
+.dream .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.dream:hover .overlay {
+    opacity: 1;
+    
+}
+
+.item-link {
+    margin: 0 10px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    text-decoration: none;
+}
+.item-link:hover{
+    color: #d6b708;
+    text-decoration: none;
 }
 
 /* Responsive Design */
