@@ -5,12 +5,22 @@
         </div>
     </div>
     <div class="container">
-        <div class="box">
+        {%if logged_in%}
             {%for item in items%}
-            <div class="dream">
-                <img src={{item.address}}>
-            </div> 
-            {%endfor%}         
-        </div>
+            {% if loop.index0 % 4 == 0 %}
+            <div class="box">
+            {% endif %}
+                <div class="dream">
+                    <img src={{item.address}}>
+                </div> 
+            {% if loop.index0 % 4 == 3 or loop.last %}
+            </div>
+            {% endif %}
+            {%endfor%}     
+        {%else%}
+            <div class="box">
+                Login to view your items
+            </div>
+        {%endif%}
     </div>
 {%include 'footer.html'%}

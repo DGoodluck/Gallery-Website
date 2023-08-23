@@ -21,10 +21,13 @@
         <ul class="nav nav-pills">
           <li class="nav-item"><a href="/" class="btn btn-custom" aria-current="page">Home</a></li>
           <li class="nav-item"><a href="add" class="btn btn-custom">Add Item</a></li>
-          <li class="nav-item"><a href="#" class="btn btn-custom">Pricing</a></li>
-          <li class="nav-item"><a href="#" class="btn btn-custom">FAQs</a></li>
-          <li class="nav-item"><a href="#" class="btn btn-custom">About</a></li>
-        </ul>
-      </nav>
+          {% if current_user.is_authenticated %}
+          <!-- If the user is logged in, display the "Sign Out" button -->
+            <li class="nav-item"><a href="{{ url_for('logout') }}" class="btn btn-custom">Sign Out</a></li>
+          {% else %}
+          <!-- If the user is not logged in, display the "Create Account" and "Login" buttons -->
+            <li class="nav-item"><a href="{{ url_for('register') }}" class="btn btn-custom">Create Account</a></li>
+            <li class="nav-item"><a href="{{ url_for('login') }}" class="btn btn-custom">Login</a></li>
+      {% endif %}
     </div>
 </body>
