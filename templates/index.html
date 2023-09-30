@@ -1,12 +1,12 @@
 {%include 'header.html'%}
     <div class="container">
         <div class="heading">
-            <h3>Photo <span>Gallery</span></h3>
+            <h3><span>Gallery</span></h3>
         </div>
     </div>
     <div class="container">
         {%if logged_in%}
-            {%for item in items%}
+            {%for item in items[::-1]%}
             {% if loop.index0 % 4 == 0 %}
             <div class="box">
             {% endif %}

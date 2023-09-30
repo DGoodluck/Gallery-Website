@@ -14,7 +14,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 40px 20px 0 20px;   
+    margin: 40px auto 0 auto;   
+    width: 80%; /* You can adjust this value to suit your needs */
 }
 nav{
     margin-top: -40px;

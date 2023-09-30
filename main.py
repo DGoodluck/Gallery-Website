@@ -5,7 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from form import AddItem, NewUser, LoginUser
 from sqlalchemy import func
-
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "gryc43u46ct8t47c74"
@@ -56,7 +61,7 @@ def home():
 def add():
     form = AddItem()
     item_name = form.name.data
-    item_category = form.name.data
+    item_category = form.category.data
     item_link = form.link.data
     item_img = form.img.data
     if form.validate_on_submit():
@@ -66,6 +71,7 @@ def add():
             db.session.add(new_item)
             db.session.commit()
         flash(f"{item_name} has been added")
+        return redirect(url_for('add'))
     return render_template("add.html", form=form, logged_in=current_user.is_authenticated)
 
 @app.route("/register", methods=["GET", "POST"])
@@ -126,5 +132,47 @@ def delete_item(item_id):
 
 
 
+
+# with app.app_context():
+#     # Your existing code
+#     driver = webdriver.Chrome()
+#     driver.get("https://www.pandabuy.com/person/collection")
+#     wait = WebDriverWait(driver, 30)
+
+#     products = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div[5]/div/div[2]/div/div[1]/div/div/div/div[3]')))
+#     products.click()
+
+#     time.sleep(10)
+#     imgs = driver.find_elements(By.XPATH, '/html/body/div[1]/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/a/img')
+
+#     names = driver.find_elements(By.XPATH, '/html/body/div[1]/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/a')
+
+#     links = driver.find_elements(By.XPATH, '/html/body/div[1]/div[1]/div[5]/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/a')
+
+#     for img, name, link in zip(imgs, names, links):
+#         img_src = img.get_attribute('data-src')
+#         link_src = name.get_attribute('href')
+#         name_src = link.text
+
+#         if img_src is None or name_src is None or link_src is None:
+#             continue
+
+#         # Create an instance of the Item class
+#         new_item = Item(
+#             name=name_src,  # Replace with actual name
+#             category="PandaBuy",  # Replace with actual category
+#             link=link_src,  # Replace with actual link
+#             address=img_src,  # Image address from the scraped data
+#             user_id=1  # Assuming current_user is logged in
+#         )
+
+#         # Add the new item to the session
+#         db.session.add(new_item)
+
+#     # Commit the session to save the changes
+#     db.session.commit()
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
